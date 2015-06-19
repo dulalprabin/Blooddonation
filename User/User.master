@@ -59,10 +59,11 @@
     <ul class="nav navbar-nav navbar-left">
     <li><a href="../Home.aspx">Home</a></li>
     <li><a href="BloodCenterDetails.aspx">Blood Center</a></li>
-    <li><a href="">Request Blood </a></li>
-    <li><a href="">Contact Us</a></li>
+    <li><a href="#">Request Blood </a></li>
+    <li><a href="#">Contact Us</a></li>
     <li><a href="../WhyToDonate.aspx">Why To Donate</a></li>
-    <li><a href="">Profile</a></li>
+    <li><a href="../User/PostEventForm.aspx">Post Events</a></li>
+    <li><a href="#">Profile</a></li>
     </ul>
     </div>
     </div>
