@@ -20,33 +20,13 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         if (!IsPostBack)
         {
-            dataload();
+            BloodGroupAndLocation.dataload(ddl_bloodgroup, ddl_location);
             EventLoad();
         }
 
     }
 
-    public void dataload()
-    {
-            ddl_bloodgroup.DataSource = BloodGroupAndLocation.BloodGroup();
-            ddl_bloodgroup.DataTextField = "BloodGroup";
-            ddl_bloodgroup.DataBind();
-            ddl_bloodgroup.Items.Insert(0,"Blood Type");
-
-
-            ddl_location.DataSource = BLLLocation.GetAllLocation();
-            ddl_location.DataTextField = "LocationName";
-            ddl_location.DataBind();
-            ddl_location.Items.Insert(0, "Choose Location");
    
-            //ddl_location.DataSource = BloodGroupAndLocation.Location();
-            //ddl_location.DataTextField = "LocationName";
-            //ddl_location.DataBind();
-            //ddl_location.Items.Insert(0, "Choose Location");
-
-            //gv_search.DataSource = ds;
-            //gv_search.DataBind();
-   }
 
     protected void btn_search_Click(object sender, EventArgs e)
     {

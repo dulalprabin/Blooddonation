@@ -248,5 +248,46 @@ public class BLLUser
     }
 
 
+     public static bool LoginUser(string username,
+             string password)
+        {
+            bool success = false;
+            string query = "SELECT COUNT(UserId) FROM TblUserApproval WHERE EmailAddress ='";
+            query += username + "' AND PASWORD='" + password + "'" + " AND IsApproved='true'";
 
-}
+
+            SqlConnection con =ConnectionHelper.GetConnection();
+            SqlCommand command = new SqlCommand(query, con);
+            int a = -1;
+            try
+            {
+
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                a = Convert.ToInt32(command.ExecuteScalar().ToString());
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            if (a > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+    }
+
+
+
+
+

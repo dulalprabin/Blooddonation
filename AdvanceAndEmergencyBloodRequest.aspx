@@ -56,7 +56,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Location</td>
+                <td>LocaLocation</td>
                 <td>
                     
                     <asp:DropDownList ID="ddlLocationA" runat="server" cssClass="form-control" Width="50%">
@@ -72,7 +72,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Date</td>
+                <td>Date>
                 <td>
                     
                     <asp:TextBox ID="txtDateA" runat="server" cssClass="form-control"></asp:TextBox>

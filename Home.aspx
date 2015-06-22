@@ -32,12 +32,12 @@
              <tr>
                <td>
                    
-                    <h6><a href="" <%#Eval("Date") %>></a></h6>
+                    <h6><a href="#" <%#Eval("Date") %>></a></h6>
          
 
                </td>
                <td>
-                   <h6><a href="" <%#Eval("Program") %>></a></h6>
+                   <h6><a href="#" <%#Eval("Program") %>></a></h6>
                </td>
              </tr>
              </ItemTemplate>

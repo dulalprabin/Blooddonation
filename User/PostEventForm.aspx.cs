@@ -25,8 +25,8 @@ public partial class User_PostEventForm : System.Web.UI.Page
         _event.PostedBy = txtPosetedBy.Text;
         _event.Description = txtDescription.Text;
         //_event.UserID = ""; 
-        //_event.Image = fupImage.Text;
-        //_event.IssueDate = txtLocationName.Text;
+        _event.Image = fupImage.FileName.ToString();
+        _event.IssueDate = DateTime.Now;
         if (fupImage.HasFile)
         {
             fupImage.SaveAs(Server.MapPath("~/Assets/Images/Event/" + fupImage.FileName));

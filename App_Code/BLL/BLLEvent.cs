@@ -57,16 +57,16 @@ public class BLLEvent
                     cmd.CommandText = "Usp_Event_Add";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@EventTitle", _Event.EventTitle);
-                    cmd.Parameters.AddWithValue("@Date", _Event.Date);
-                    cmd.Parameters.AddWithValue("@StartingTime", _Event.StartingTime);
-                    cmd.Parameters.AddWithValue("@EndingTime", _Event.EndingTime);
-                    cmd.Parameters.AddWithValue("@Venue", _Event.Venue);
-                    cmd.Parameters.AddWithValue("@PostedBy", _Event.PostedBy);
-                    cmd.Parameters.AddWithValue("@Description", _Event.Description);
-                    cmd.Parameters.AddWithValue("@Status", _Event.Status);
-                    cmd.Parameters.AddWithValue("@Image", _Event.Image);
-                    cmd.Parameters.AddWithValue("@IssueDate", _Event.IssueDate);
+                    cmd.Parameters.AddWithValue("@eventtitle", _Event.EventTitle);
+                    cmd.Parameters.AddWithValue("@date", _Event.Date);
+                    cmd.Parameters.AddWithValue("@startingtime", _Event.StartingTime);
+                    cmd.Parameters.AddWithValue("@endtime", _Event.EndingTime);
+                    cmd.Parameters.AddWithValue("@venue", _Event.Venue);
+                    cmd.Parameters.AddWithValue("@postedby", _Event.PostedBy);
+                    cmd.Parameters.AddWithValue("@description", _Event.Description);
+                    cmd.Parameters.AddWithValue("@status", _Event.Status);
+                    cmd.Parameters.AddWithValue("@image", _Event.Image);
+                    cmd.Parameters.AddWithValue("@issuedate", _Event.IssueDate);
 
                     return cmd.ExecuteNonQuery();
                 }

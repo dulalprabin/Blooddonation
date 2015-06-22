@@ -19,7 +19,7 @@ public partial class BloodDonation : System.Web.UI.MasterPage
         //}
         if (Session["UserName"] != null)
         {
-                    LblUser.Text = "Welcome" + Session["UserName"].ToString();
+                    LblUser.Text = "Welcome"+" " + Session["UserName"].ToString();
         }
     }
     protected void lnbLogout_Click(object sender, EventArgs e)

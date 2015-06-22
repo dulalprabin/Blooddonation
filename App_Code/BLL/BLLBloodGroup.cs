@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Summary description for BLLBloodGroup
@@ -56,6 +57,20 @@ public class BLLBloodGroup
         }
         return Blood.BloodGroup;
     }
+    public void dataload(DropDownList bloodgroup, DropDownList location)
+    {
+        bloodgroup.DataSource = BloodGroupAndLocation.BloodGroup();
+        bloodgroup.DataTextField = "BloodGroup";
+        bloodgroup.DataBind();
+        bloodgroup.Items.Insert(0, "Blood Type");
 
+
+        location.DataSource = BLLLocation.GetAllLocation();
+        location.DataTextField = "LocationName";
+        location.DataBind();
+        location.Items.Insert(0, "Choose Location");
+
+
+    }
 
 }

@@ -23,7 +23,7 @@
                 <td>
                     <asp:TextBox ID="txtEventDate" runat="server" cssClass="form-control"></asp:TextBox>
                     
-                    <cc1:CalendarExtender ID="txtEventDate_CalendarExtender" runat="server" 
+                    <cc1:CalendarExtender ID="txtEventDate_CalendarExtender" Format="MM-dd-yyyy" runat="server" 
                         TargetControlID="txtEventDate">
                     </cc1:CalendarExtender>
                     
