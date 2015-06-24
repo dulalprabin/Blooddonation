@@ -253,7 +253,7 @@ public class BLLUser
         {
             bool success = false;
             string query = "SELECT COUNT(UserId) FROM TblUserApproval WHERE EmailAddress ='";
-            query += username + "' AND PASWORD='" + password + "'" + " AND IsApproved='true'";
+            query += username + "' AND PASWORD='" + password + "'";
 
 
             SqlConnection con =ConnectionHelper.GetConnection();

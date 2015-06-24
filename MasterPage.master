@@ -9,7 +9,7 @@
     <link href="~/Assets/Styles/Css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/Styles/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/Styles/Css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
-    
+    <script src="Assets/Js/bootstrap.min.js"></script>
 
 
    
@@ -36,14 +36,15 @@
     <!--Login/Register-->
       <div class="form-group" style="position:absolute; right:20px;">
          <ul class="nav pull-right"> 
-          <li class="pull-right"><a href="Registration.aspx">Sign Up</a></li>
+
+          <li class="pull-right"><a href="#" data-toggle="modal" data-target="#SignUpmodel">SignUp</a></li>
           <li class="dropdown pull-left">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">SignIn <strong class="caret"></strong></a>
             <div class="dropdown-menu" style="padding: 15px;">
                           <!-- Login form here -->
              
                     <asp:TextBox ID="txtUsername" text="Username" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:TextBox ID="txtPassword" CssClass="form-control" text="Password" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtPassword1" CssClass="form-control" text="Password" runat="server"></asp:TextBox>
                    <h6><a href="#">Forget your password?</a></h6> 
                     <asp:Button ID="btnLogin" CssClass="btn btn-default pull-right" runat="server" Text="LogIn" onclick="btn_Login_Click"/>      
             
@@ -59,6 +60,65 @@
         <a href="Home.aspx"><asp:Image ID="Image4" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-rounded img-responsive" /></a>
       
   </div>
+          <div class="modal fade" id="SignUpmodel" style="align-self:center" tabindex="-1" 
+role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:300px;height:900px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;
+                            </span><span class="sr-only">
+                                     Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Registration Form</h4>
+                    </div>
+                    <div class="modal-body">
+                       <div class="input-group">
+        <asp:TextBox ID="TxtFirstName" class="form-control" placeholder="First Name" runat="server"></asp:TextBox>
+           
+        </div>
+        <p>
+        </p>
+                              <div class="input-group">
+           <asp:TextBox ID="TxtLastName" class="form-control" placeholder="Last Name" runat="server"></asp:TextBox>
+            
+        </div>
+        <p>
+        </p>
+                              <div class="input-group">
+            <asp:TextBox ID="TxtEmail" class="form-control" placeholder="Email Id" runat="server"></asp:TextBox>
+            
+        </div>
+        <p>
+        </p>
+                              <div class="input-group">
+       <asp:TextBox ID="Txtmobile" class="form-control" placeholder="MobileNo" runat="server"></asp:TextBox>
+            
+        </div>
+        <p>
+        </p>
+                              <div class="input-group">
+            <asp:TextBox ID="TxtPassword" Type="Password" class="form-control" placeholder="Password" runat="server"></asp:TextBox>
+            
+        </div>
+        <p>
+        </p>
+        <div class="input-group">
+            <asp:TextBox ID="txtConfirmPassword" class="form-control" placeholder="Reenter Password" Type="Password" runat="server"></asp:TextBox>
+            
+        </div>
+        <p>
+        </p>  
+                        <asp:Button id="btnsubmit" OnClick="btnsubmit_Click" runat="server" Text="Submit" CssClass="btn btn-default"/>
+                        <button type="button" 
+                        class="btn btn-default" data-dismiss="modal">
+                            Close</button>
+
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
 </div>
 
 <!-- End Header -->   
