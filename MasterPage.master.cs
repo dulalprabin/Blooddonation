@@ -40,11 +40,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void btn_Login_Click(object sender, EventArgs e)
     {
-        if (Membership.ValidateUser(txtUsername.Text, txtPassword1.Text))
+        if (BLLUser.LoginUser(txtUsername.Text.Trim(), txtPassword1.Text.Trim()))
         {
-            FormsAuthentication.RedirectFromLoginPage(txtUsername.Text, false);
+          //  FormsAuthentication.RedirectFromLoginPage(txtUsername.Text, false);
             Session["UserName"] = txtUsername.Text;
-            Response.Redirect("/user/UserProfile.aspx");
+            Response.Redirect("/User/DonarDetails.aspx");
         }
     }
     BLLEvent ble = new BLLEvent();
@@ -63,17 +63,35 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void btnPostEvent_Click(object sender, EventArgs e)
     {
-        Response.Redirect("User/PostEventForm.aspx");
+        if (Session["UserName"]==null)
+        {
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Message", "alert('You dont have permission to post Events. Please Login.');", true);
+        }
+        else
+        {
+            if(BLLUser. CheckIsApproved(Session["Username"].ToString()))
+            {
+                 Response.Redirect("User/PostEventForm.aspx");
+            }
+            else
+            {
+                Response.Redirect("User/DonarDetails.aspx");
+            }
+
+        }
+       
         //Server.Transfer("~/User/PostEventForm.aspx", true);
     }
+  
     protected void btnsubmit_Click(object sender, EventArgs e)
     {
         try
         {
-            InsertUser(TxtFirstName.Text.Trim() + " " + TxtLastName.Text.Trim(), TxtEmail.Text.Trim(), TxtPassword.Text.Trim(), Txtmobile.Text.Trim());
-         if(   BLLUser.LoginUser(TxtEmail.Text.Trim(), TxtPassword.Text.Trim()));
+            InsertUser(TxtFirstName.Text.Trim() + " " + TxtLastName.Text.Trim(),txtuser.Text.Trim(), TxtEmail.Text.Trim(), TxtPassword.Text.Trim(), Txtmobile.Text.Trim());
+         if(   BLLUser.LoginUser(txtuser.Text.Trim(), TxtPassword.Text.Trim()))
          {
-             Session["UserName"] = TxtFirstName.Text.Trim() + " " + TxtLastName.Text.Trim();
+             Session["UserName"] = txtuser.Text.Trim();
              Session["EmailId"] = TxtEmail.Text.Trim();
             
              Response.Redirect("User/DonarDetails.aspx",false);
@@ -94,20 +112,21 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
 
 
-    public void InsertUser(string name, string emailid, string password, string contactno)
+    public void InsertUser(string name, string username, string emailid, string password, string contactno)
     {
         SqlConnection con = ConnectionHelper.GetConnection();
 
         SqlCommand cmd = new SqlCommand();
         try
         {
-            cmd = new SqlCommand("insert into TblUserApproval (FullName,EmailAddress,Pasword,Mobilenumber,UserGroupid) values (@Name,@EmailId,@Pasword,@ContactNo,@usergroupid) ", con);
+            cmd = new SqlCommand("insert into TblUserApproval (FullName,EmailAddress,Pasword,Mobilenumber,UserGroupid,UserName) values (@Name,@EmailId,@Pasword,@ContactNo,@usergroupid,@username) ", con);
 
             cmd.Parameters.AddWithValue("@Name", name.Trim());
             cmd.Parameters.AddWithValue("@EmailId", emailid.Trim());
             cmd.Parameters.AddWithValue("@Pasword", password.Trim());
             cmd.Parameters.AddWithValue("@ContactNo", contactno.Trim());
             cmd.Parameters.AddWithValue("@usergroupid", 3);
+            cmd.Parameters.AddWithValue("@username", username.Trim());
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();

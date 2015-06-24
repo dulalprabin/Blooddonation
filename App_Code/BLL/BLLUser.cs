@@ -251,8 +251,8 @@ public class BLLUser
      public static bool LoginUser(string username,
              string password)
         {
-            bool success = false;
-            string query = "SELECT COUNT(UserId) FROM TblUserApproval WHERE EmailAddress ='";
+           
+            string query = "SELECT COUNT(UserId) FROM TblUserApproval WHERE UserName ='";
             query += username + "' AND PASWORD='" + password + "'";
 
 
@@ -283,7 +283,22 @@ public class BLLUser
             }
             return false;
         }
+     public static bool CheckIsApproved(string username)
+     {
+         SqlConnection conn = ConnectionHelper.GetConnection();
+         SqlCommand cmd = new SqlCommand();
+         string select = string.Format("Select IsApproved from TblUserApproval where UserName='{0}'", username);
+         cmd.CommandText = select;
+         cmd.Connection = conn;
+         cmd.CommandType = CommandType.Text;
 
+         int isapproved = Convert.ToInt32(cmd.ExecuteScalar());
+         conn.Close();
+         if (isapproved == 1)
+         { return true; }
+         else { return false; }
+
+     }
 
     }
 

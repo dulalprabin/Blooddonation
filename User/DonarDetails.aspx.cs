@@ -15,28 +15,36 @@ public partial class DonarDetails : System.Web.UI.Page
     string userid;
     protected void Page_Load(object sender, EventArgs e)
     {
-        //userid = Request.QueryString["VerCode"];
-        //emailaddress = Request.QueryString["EmailId"];
-        //if (!IsPostBack)
-        //{
-        //    if (Session["UserName"] != null)
-        //    {
-        //        txtname.Text = Session["UserName"].ToString();
-        //        txtemail.Text = Session["Emailid"].ToString();
-        //    }
-        //    else
-        //    {
-        //        txtname.Text = emailaddress;
+        userid = Request.QueryString["VerCode"];
+        emailaddress = Request.QueryString["EmailId"];
+        if (!IsPostBack)
+        {
+            if (Session["UserName"] != null)
+            {
+                txtname.Text = Session["UserName"].ToString();
+               // txtemail.Text = Session["Emailid"].ToString();
+            }
+            else
+            {
+                txtname.Text = emailaddress;
 
-        //    }
-        //}
-        //if (!IsPostBack)
-        //{
-        //    if (emailaddress != null)
-        //    {
-        //        ValidateUser();
-        //    }
-        //}
+            }
+        }
+        if (!IsPostBack)
+        {
+            if (emailaddress != null)
+            {
+                ValidateUser();
+            }
+        }
+        if (BLLUser.CheckIsApproved(Session["UserName"].ToString()))
+        {
+            MultiView1.ActiveViewIndex = 2;
+        }
+        else
+        {
+            MultiView1.ActiveViewIndex = 0;
+        }
     }
     string emailaddress;
     private void ValidateUser()
@@ -44,7 +52,7 @@ public partial class DonarDetails : System.Web.UI.Page
 
         SqlConnection conn = ConnectionHelper.GetConnection();
         SqlCommand cmd = new SqlCommand();
-        string select = string.Format("Select FullName,Pasword,UserGroupId from TblUserApproval where UserID={0}", Convert.ToInt32(userid));
+        string select = string.Format("Select FullName, UserName,Pasword,UserGroupId from TblUserApproval where UserID={0}", Convert.ToInt32(userid));
         cmd.CommandText = select;
         cmd.Connection = conn;
         cmd.CommandType = CommandType.Text;
@@ -54,7 +62,8 @@ public partial class DonarDetails : System.Web.UI.Page
         adp.Fill(dt);
 
         string password = dt.Rows[0]["Pasword"].ToString();
-        string name = dt.Rows[0]["FullName"].ToString();
+        string name = dt.Rows[0]["UserName"].ToString();
+        string fname = dt.Rows[0]["FullName"].ToString();
         int usergroupid = Convert.ToInt32(dt.Rows[0]["UserGroupId"].ToString());
         string update = string.Format("Update TblUserApproval set IsApproved='True' where UserId={0}", Convert.ToInt32(userid));
         SqlCommand cmd1 = new SqlCommand();
@@ -84,7 +93,7 @@ public partial class DonarDetails : System.Web.UI.Page
                 Response.Redirect("Home.aspx");
             }
 
-            txtname.Text = name;
+            txtname.Text = fname;
             txtemail.Text = emailaddress;
 
         }
@@ -143,7 +152,7 @@ public partial class DonarDetails : System.Web.UI.Page
             msg.Subject = "Confirmation email for account activation";
 
             //For testing replace the local host path with your lost host path and while making online replace with your website domain name
-            ActivationUrl = Server.HtmlEncode("http://localhost:32057/DonarDetails.aspx?VerCode=" + FetchUserId(emailId) + "&EmailId=" + emailId);
+            ActivationUrl = Server.HtmlEncode("http://localhost:32057/User/DonarDetails.aspx?VerCode=" + FetchUserId(emailId) + "&EmailId=" + emailId);
 
             msg.Body = "Hi " + name.Trim() + "!\n" +
                   "Thanks for registering in <a href='Home.aspx'>oursite<a> " +
