@@ -15,20 +15,29 @@ public partial class DonarDetails : System.Web.UI.Page
     string userid;
     protected void Page_Load(object sender, EventArgs e)
     {
+        
+       
+
+
+
         userid = Request.QueryString["VerCode"];
         emailaddress = Request.QueryString["EmailId"];
         if (!IsPostBack)
         {
-            if (Session["UserName"] != null)
-            {
-                txtname.Text = Session["UserName"].ToString();
-               // txtemail.Text = Session["Emailid"].ToString();
-            }
-            else
-            {
-                txtname.Text = emailaddress;
-
-            }
+            List<DistrictInfo> li = BLLDistrict.GetAllDistrict();
+            DropDownListDistrict.DataSource = li;
+            DropDownListDistrict.DataTextField = "DistrictName";
+            DropDownListDistrict.DataValueField = "DistrictId";
+            DropDownListDistrict.DataBind();
+            DropDownListDistrict.Items.Insert(0, "Choose District");
+            DropDownBldGrp.DataSource = BLLBloodGroup.GetAllBloodGroup();
+            DropDownBldGrp.DataTextField = "BloodGroup";
+            DropDownBldGrp.DataValueField = "BloodGroupId";
+            DropDownBldGrp.DataBind();
+            DropDownBldGrp.Items.Insert(0, "Blood Type");
+            DataTable dt= BLLUser.SelectField(Session["UserName"].ToString());
+            txtname.Text = dt.Rows[0]["FullName"].ToString();
+            txtemail.Text = dt.Rows[0]["EmailAddress"].ToString();
         }
         if (!IsPostBack)
         {
@@ -85,8 +94,39 @@ public partial class DonarDetails : System.Web.UI.Page
    
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        SaveToDatabase();  
+    }
+    void SaveToDatabase()
+    {
+        DataTable dt = BLLUser.SelectField(Session["UserName"].ToString());
+
+        int userid = Convert.ToInt32( dt.Rows[0]["UserId"].ToString());
+        string besttime="";
+        foreach (ListItem item in chkContactTime.Items)
+        {
+            if (item.Selected)
+            {
+                 besttime+=item.Value.ToString()+"/n";
+              
+            }
+
+        }
+         string profilepicture="";
+        if (FileUpload1.HasFile)
+        {
+            FileUpload1.SaveAs(Server.MapPath("~/Assets/Images/Donor/" + FileUpload1.FileName));
+            profilepicture = "~/Assets/Images/Donor/" + FileUpload1.FileName;
+        }
+        string gender="";
+        if (RadioButton1 .Checked)
+        {gender=RadioButton1.Text;}
+        else{gender=RadioButton2.Text;}
+        MemberInfo member = new MemberInfo(userid,txtname.Text.Trim(), txtCurrentAddress.Text.Trim(), Convert.ToInt32(DropDownListDistrict.SelectedValue.ToString()), Convert.ToInt32(DropDownBldGrp.SelectedValue.ToString()), gender, besttime, txtContactNo.Text.Trim(), txtemail.Text.Trim(), profilepicture);
+        BLLUser.SaveMemberToDatabase(member);
+
 
     }
+
     public void SendVerificationEmail()
     {
         try
@@ -208,12 +248,12 @@ public partial class DonarDetails : System.Web.UI.Page
     public void CheckVerificationCode(int vercode)
     {
         SqlConnection con = ConnectionHelper.GetConnection();
-        string commandtext = string.Format("Select UserId,UserGroupId, Pasword,FullName from TblUserApproval where EmailAddress='{0}'", Session["Emailid"].ToString());
+        string commandtext = string.Format("Select UserId,UserGroupId, Password,FullName from TblUserApproval where EmailAddress='{0}'", Session["Emailid"].ToString());
         SqlCommand cmd = new SqlCommand(commandtext, con);
         DataTable dt = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);
         adp.Fill(dt);
-        string password = dt.Rows[0]["Pasword"].ToString();
+        string password = dt.Rows[0]["Password"].ToString();
         string name = dt.Rows[0]["FullName"].ToString();
         int verificationcode = Convert.ToInt32(dt.Rows[0]["UserId"].ToString());
         int usergroupid = Convert.ToInt32(dt.Rows[0]["UserGroupId"].ToString());
@@ -238,4 +278,8 @@ public partial class DonarDetails : System.Web.UI.Page
             }
 
         }
+    protected void DropDownListDistrict_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
     }
+}

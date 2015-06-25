@@ -72,5 +72,29 @@ public class BLLBloodGroup
 
 
     }
+    public static List<BloodGroupInfo> GetAllBloodGroup()
+    {
+        using (SqlConnection con = ConnectionHelper.GetConnection())
+        {
+            string Sp = "Usp_get_AllBloodGroup";
+            SqlCommand cmd = new SqlCommand(Sp, con);
+            List<BloodGroupInfo> lstbloodgroup = new List<BloodGroupInfo>();
+            cmd.CommandType = CommandType.StoredProcedure;
 
+            using (SqlDataReader _reader = cmd.ExecuteReader())
+            {
+                while (_reader.Read())
+                {
+                    lstbloodgroup.Add(new BloodGroupInfo
+                    {
+                       BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString()),
+                        BloodGroup = _reader["BLoodGroup"].ToString(),
+
+                    });
+                }
+            }
+            return lstbloodgroup;
+        }
+
+    }
 }

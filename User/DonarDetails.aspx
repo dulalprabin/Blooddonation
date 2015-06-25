@@ -129,25 +129,23 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
                 </td>
             </tr>
             <tr>
-                <td >CurrentAddress</td>
+                <td >District</td>
                 <td class="auto-style2" >
-                    <asp:TextBox ID="txtAddress" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:DropDownList ID="DropDownListDistrict" runat="server" CssClass="form-control" Width="146px" OnSelectedIndexChanged="DropDownListDistrict_SelectedIndexChanged">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>CurrentAddress</td>
+                <td class="auto-style2">
+                    <asp:TextBox ID="txtCurrentAddress" runat="server" CssClass="form-control"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td >BloodGroup</td>
                 <td class="auto-style2" >
-                    <asp:DropDownList ID="DropDownBldGrp" CssClass="form-control" runat="server">
-                        <asp:ListItem Selected="True">SELECT GROUP</asp:ListItem>
-                        <asp:ListItem>O+</asp:ListItem>
-                        <asp:ListItem>O-</asp:ListItem>
-                        <asp:ListItem>A+</asp:ListItem>
-                        <asp:ListItem>B+</asp:ListItem>
-                        <asp:ListItem>B-</asp:ListItem>
-                        <asp:ListItem>AB+</asp:ListItem>
-                        <asp:ListItem>AB-</asp:ListItem>
-                        <asp:ListItem>A-</asp:ListItem>
-                        
+                    <asp:DropDownList ID="DropDownBldGrp" CssClass="form-control" runat="server" Width="139px">
+                    
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -188,10 +186,10 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="btnSubmit" CssClass="btn-default" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+                    <asp:Button ID="btnSubmit" CssClass="btn-default" runat="server" Text="Submit" OnClick="btnSubmit_Click" Height="33px" />
                 </td>
                 <td class="auto-style2">
-                    <asp:Button ID="btnCancel" CssClass="btn-default" runat="server" Text="Cancel" Height="34px" />
+                    <asp:Button ID="btnCancel" CssClass="btn-default" runat="server" Text="Cancel" Height="31px" />
                 </td>
             </tr>
         </table>

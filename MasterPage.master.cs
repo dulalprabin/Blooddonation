@@ -129,7 +129,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         SqlCommand cmd = new SqlCommand();
         try
         {
-            cmd = new SqlCommand("insert into TblUserApproval (FullName,EmailAddress,Pasword,Mobilenumber,UserGroupid,UserName) values (@Name,@EmailId,@Pasword,@ContactNo,@usergroupid,@username) ", con);
+            cmd = new SqlCommand("insert into TblUserApproval (FullName,EmailAddress,Password,Mobilenumber,UserGroupid,UserName) values (@Name,@EmailId,@Pasword,@ContactNo,@usergroupid,@username) ", con);
 
             cmd.Parameters.AddWithValue("@Name", name.Trim());
             cmd.Parameters.AddWithValue("@EmailId", emailid.Trim());

@@ -41,167 +41,167 @@ public class BLLUser
 
 
     // create user from second regestration page page
-    public static void CreateUser2(MemberInfo _User)
-    {
-        string sp = "Usp_Member_CreateUpdate";
-        SqlConnection con = ConnectionHelper.GetConnection();
-        SqlCommand cmd = new SqlCommand(sp, con);
-        cmd.Parameters.Add(new SqlParameter("@Email", _User.Email));
-        cmd.Parameters.Add(new SqlParameter("@DOB", _User.DOB));
-        cmd.Parameters.Add(new SqlParameter("@PhoneNumber", _User.PhoneNo));
-        cmd.Parameters.Add(new SqlParameter("@CurrentAddress", _User.CurrentAddress));
-        cmd.Parameters.Add(new SqlParameter("@Gender", _User.Gender));
-        cmd.Parameters.Add(new SqlParameter("@BestTime", _User.BestTime));
-        cmd.Parameters.Add(new SqlParameter("@ProfilePicture", _User.ProfilePicture));
-        cmd.CommandType = CommandType.StoredProcedure;
-        try
-        {
-            cmd.ExecuteNonQuery();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-    }
+    //public static void CreateUser2(MemberInfo _User)
+    //{
+    //    string sp = "Usp_Member_CreateUpdate";
+    //    SqlConnection con = ConnectionHelper.GetConnection();
+    //    SqlCommand cmd = new SqlCommand(sp, con);
+    //    cmd.Parameters.Add(new SqlParameter("@Email", _User.Email));
+    //    cmd.Parameters.Add(new SqlParameter("@DOB", _User.DOB));
+    //    cmd.Parameters.Add(new SqlParameter("@PhoneNumber", _User.PhoneNo));
+    //    cmd.Parameters.Add(new SqlParameter("@CurrentAddress", _User.CurrentAddress));
+    //    cmd.Parameters.Add(new SqlParameter("@Gender", _User.Gender));
+    //    cmd.Parameters.Add(new SqlParameter("@BestTime", _User.BestTime));
+    //    cmd.Parameters.Add(new SqlParameter("@ProfilePicture", _User.ProfilePicture));
+    //    cmd.CommandType = CommandType.StoredProcedure;
+    //    try
+    //    {
+    //        cmd.ExecuteNonQuery();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw ex;
+    //    }
+    //}
 
 
     // get all users Info
-    public static List<MemberInfo> GetAllMembers()
-    {
-        List<MemberInfo> lstmembers = new List<MemberInfo>();
-        using (SqlConnection con = ConnectionHelper.GetConnection())
-        {
-            string Sp = "usp_get_allmember";
-            SqlCommand cmd = new SqlCommand(Sp, con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            using (SqlDataReader _reader = cmd.ExecuteReader())
-            {
-                while (_reader.Read())
-                    {
-                        lstmembers.Add(new MemberInfo
-                        {
-                            MemberId = int.Parse(_reader["DonarID"].ToString()),
-                            FullName = _reader["FullName"].ToString(),
-                            CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString()),
-                            DOB = Convert.ToDateTime(_reader["DOB"]),
-                            BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString()),
-                            Gender = _reader["Gender"].ToString(),
-                            BestTime = _reader["BestTime"].ToString(),
-                            MobileNo = _reader["MobileNumber"].ToString(),
-                            PhoneNo = _reader["PhoneNumber"].ToString(),
-                            Email = _reader["Email"].ToString(),
-                            AccountStatus = bool.Parse(_reader["AccountStatus"].ToString()),
-                            RoleId = bool.Parse(_reader["RoleID"].ToString()),
-                            ProfilePicture = _reader["ProfilePicture"].ToString(),
-                        });
-                    }
-                }
-            }
-            return (lstmembers);
-        }        
+    //public static List<MemberInfo> GetAllMembers()
+    //{
+    //    List<MemberInfo> lstmembers = new List<MemberInfo>();
+    //    using (SqlConnection con = ConnectionHelper.GetConnection())
+    //    {
+    //        string Sp = "usp_get_allmember";
+    //        SqlCommand cmd = new SqlCommand(Sp, con);
+    //        cmd.CommandType = CommandType.StoredProcedure;
+    //        using (SqlDataReader _reader = cmd.ExecuteReader())
+    //        {
+    //            while (_reader.Read())
+    //                {
+    //                    lstmembers.Add(new MemberInfo
+    //                    {
+    //                        MemberId = int.Parse(_reader["DonarID"].ToString()),
+    //                        FullName = _reader["FullName"].ToString(),
+    //                        CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString()),
+    //                        DOB = Convert.ToDateTime(_reader["DOB"]),
+    //                        BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString()),
+    //                        Gender = _reader["Gender"].ToString(),
+    //                        BestTime = _reader["BestTime"].ToString(),
+    //                        MobileNo = _reader["MobileNumber"].ToString(),
+    //                        PhoneNo = _reader["PhoneNumber"].ToString(),
+    //                        Email = _reader["Email"].ToString(),
+    //                        AccountStatus = bool.Parse(_reader["AccountStatus"].ToString()),
+    //                        RoleId = bool.Parse(_reader["RoleID"].ToString()),
+    //                        ProfilePicture = _reader["ProfilePicture"].ToString(),
+    //                    });
+    //                }
+    //            }
+    //        }
+    //        return (lstmembers);
+    //    }        
     
 
-    public static List<MemberInfo> GetDeactiveMembers()
-    {
-        using (SqlConnection con = ConnectionHelper.GetConnection())
-        {
-            string Sp = "Usp_GetDeactiveMemeber";
-            SqlCommand cmd = new SqlCommand(Sp, con);
-            List<MemberInfo> lstmembers = new List<MemberInfo>();
-            cmd.CommandType = CommandType.StoredProcedure;
-            using (SqlDataReader _reader = cmd.ExecuteReader())
-            {
-                while (_reader.Read())
-                {
-                    lstmembers.Add(new MemberInfo
-                    {
-                        MemberId = int.Parse(_reader["DonarID"].ToString()),
-                        FullName = _reader["FirstName"].ToString(),
-                        CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString()),
-                        DOB = Convert.ToDateTime(_reader["DOB"]),
-                        BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString()),
-                        Gender = _reader["Gender"].ToString(),
-                        BestTime = _reader["BestTime"].ToString(),
-                        MobileNo = _reader["MobileNumber"].ToString(),
-                        PhoneNo = _reader["PhoneNumber"].ToString(),
-                        Email = _reader["Email"].ToString(),
-                        AccountStatus = bool.Parse(_reader["AccountStatus"].ToString()),
-                        RoleId = bool.Parse(_reader["RoleID"].ToString()),
-                        ProfilePicture = _reader["ProfilePicture"].ToString(),
-                    });
-                }
-            }
-            return (lstmembers);
-        }
-    }
+    //public static List<MemberInfo> GetDeactiveMembers()
+    //{
+    //    using (SqlConnection con = ConnectionHelper.GetConnection())
+    //    {
+    //        string Sp = "Usp_GetDeactiveMemeber";
+    //        SqlCommand cmd = new SqlCommand(Sp, con);
+    //        List<MemberInfo> lstmembers = new List<MemberInfo>();
+    //        cmd.CommandType = CommandType.StoredProcedure;
+    //        using (SqlDataReader _reader = cmd.ExecuteReader())
+    //        {
+    //            while (_reader.Read())
+    //            {
+    //                lstmembers.Add(new MemberInfo
+    //                {
+    //                    MemberId = int.Parse(_reader["DonarID"].ToString()),
+    //                    FullName = _reader["FirstName"].ToString(),
+    //                    CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString()),
+    //                    DOB = Convert.ToDateTime(_reader["DOB"]),
+    //                    BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString()),
+    //                    Gender = _reader["Gender"].ToString(),
+    //                    BestTime = _reader["BestTime"].ToString(),
+    //                    MobileNo = _reader["MobileNumber"].ToString(),
+    //                    PhoneNo = _reader["PhoneNumber"].ToString(),
+    //                    Email = _reader["Email"].ToString(),
+    //                    AccountStatus = bool.Parse(_reader["AccountStatus"].ToString()),
+    //                    RoleId = bool.Parse(_reader["RoleID"].ToString()),
+    //                    ProfilePicture = _reader["ProfilePicture"].ToString(),
+    //                });
+    //            }
+    //        }
+    //        return (lstmembers);
+    //    }
+    //}
 
-    public static MemberInfo GetMemberByUserName(string Email)
-    {
+    //public static MemberInfo GetMemberByUserName(string Email)
+    //{
 
-        MemberInfo _member = new MemberInfo();
+    //    MemberInfo _member = new MemberInfo();
 
-        String sp = "Usp_GetMemeberbyEmail";
+    //    String sp = "Usp_GetMemeberbyEmail";
         
 
-        SqlConnection Con = ConnectionHelper.GetConnection();
+    //    SqlConnection Con = ConnectionHelper.GetConnection();
 
-        SqlCommand cmd = new SqlCommand(sp, Con);
-        cmd.Parameters.Add(new SqlParameter("@email", Email));
-        cmd.CommandType = CommandType.StoredProcedure;
-        using (SqlDataReader _reader = cmd.ExecuteReader())
-        {
-            _reader.Read();
-            _member.MemberId = int.Parse(_reader["DonarID"].ToString());
-            _member.FullName = _reader["FullName"].ToString();
-            _member.CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString());
-            _member.DOB = Convert.ToDateTime(_reader["DOB"]);
-            _member.BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString());
-            _member.Gender = _reader["Gender"].ToString();
-            _member.BestTime = _reader["BestTime"].ToString();
-            _member.MobileNo = _reader["MobileNumber"].ToString();
-            _member.PhoneNo = _reader["PhoneNumber"].ToString();
-            _member.Email = _reader["Email"].ToString();
-            _member.AccountStatus = bool.Parse(_reader["AccountStatus"].ToString());
-            _member.RoleId = bool.Parse(_reader["RoleID"].ToString());
-            _member.ProfilePicture = _reader["ProfilePicture"].ToString();
-        }
-        return _member;
-    }
+    //    SqlCommand cmd = new SqlCommand(sp, Con);
+    //    cmd.Parameters.Add(new SqlParameter("@email", Email));
+    //    cmd.CommandType = CommandType.StoredProcedure;
+    //    using (SqlDataReader _reader = cmd.ExecuteReader())
+    //    {
+    //        _reader.Read();
+    //        _member.MemberId = int.Parse(_reader["DonarID"].ToString());
+    //        _member.FullName = _reader["FullName"].ToString();
+    //        _member.CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString());
+    //        _member.DOB = Convert.ToDateTime(_reader["DOB"]);
+    //        _member.BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString());
+    //        _member.Gender = _reader["Gender"].ToString();
+    //        _member.BestTime = _reader["BestTime"].ToString();
+    //        _member.MobileNo = _reader["MobileNumber"].ToString();
+    //        _member.PhoneNo = _reader["PhoneNumber"].ToString();
+    //        _member.Email = _reader["Email"].ToString();
+    //        _member.AccountStatus = bool.Parse(_reader["AccountStatus"].ToString());
+    //        _member.RoleId = bool.Parse(_reader["RoleID"].ToString());
+    //        _member.ProfilePicture = _reader["ProfilePicture"].ToString();
+    //    }
+    //    return _member;
+    //}
 
 
     // Get user from userID
-    public static MemberInfo GetMemberByUserID(int UserID)
-    {
+    //public static MemberInfo GetMemberByUserID(int UserID)
+    //{
 
 
-        MemberInfo _member = new MemberInfo();
+    //    MemberInfo _member = new MemberInfo();
 
-        String sp = "Usp_GetMemeberbyID";
+    //    String sp = "Usp_GetMemeberbyID";
 
 
-        SqlConnection Con = ConnectionHelper.GetConnection();
+    //    SqlConnection Con = ConnectionHelper.GetConnection();
 
-        SqlCommand cmd = new SqlCommand(sp, Con);
-        cmd.Parameters.Add(new SqlParameter("@userid", UserID));
-        cmd.CommandType = CommandType.StoredProcedure;
-        using (SqlDataReader _reader = cmd.ExecuteReader())
-        {
-            _reader.Read();
-            _member.MemberId = int.Parse(_reader["DonarID"].ToString());
-            _member.FullName = _reader["FirstName"].ToString();
-            _member.CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString());
-            _member.DOB = Convert.ToDateTime(_reader["DOB"]);
-            _member.BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString());
-            _member.Gender = _reader["Gender"].ToString();
-            _member.BestTime = _reader["BestTime"].ToString();
-            _member.MobileNo = _reader["MobileNumber"].ToString();
-            _member.PhoneNo = _reader["PhoneNumber"].ToString();
-            _member.Email = _reader["Email"].ToString();
-            _member.RoleId = bool.Parse(_reader["RoleID"].ToString());
-            _member.ProfilePicture = _reader["ProfilePicture"].ToString();
-        }
-        return _member;
-    }
+    //    SqlCommand cmd = new SqlCommand(sp, Con);
+    //    cmd.Parameters.Add(new SqlParameter("@userid", UserID));
+    //    cmd.CommandType = CommandType.StoredProcedure;
+    //    using (SqlDataReader _reader = cmd.ExecuteReader())
+    //    {
+    //        _reader.Read();
+    //        _member.MemberId = int.Parse(_reader["DonarID"].ToString());
+    //        _member.FullName = _reader["FirstName"].ToString();
+    //        _member.CurrentAddress = int.Parse(_reader["CurrentAddress"].ToString());
+    //        _member.DOB = Convert.ToDateTime(_reader["DOB"]);
+    //        _member.BloodGroupId = int.Parse(_reader["BloodGroupID"].ToString());
+    //        _member.Gender = _reader["Gender"].ToString();
+    //        _member.BestTime = _reader["BestTime"].ToString();
+    //        _member.MobileNo = _reader["MobileNumber"].ToString();
+    //        _member.PhoneNo = _reader["PhoneNumber"].ToString();
+    //        _member.Email = _reader["Email"].ToString();
+    //        _member.RoleId = bool.Parse(_reader["RoleID"].ToString());
+    //        _member.ProfilePicture = _reader["ProfilePicture"].ToString();
+    //    }
+    //    return _member;
+    //}
 
     //get users by Location and blood Group
     public static DataTable GetDonarByLocationAndBloodGroup(int LocationID, int BloodGroupID )
@@ -253,7 +253,7 @@ public class BLLUser
         {
             DataTable dt = new DataTable();
             string query = "SELECT  UserGroupid,FullName,EmailAddress FROM TblUserApproval WHERE UserName ='";
-            query += username + "' AND PASWORD='" + password + "'";
+            query += username + "' AND PASSWORD='" + password + "'";
 
 
             SqlConnection con =ConnectionHelper.GetConnection();
@@ -303,7 +303,7 @@ public class BLLUser
      {
          SqlConnection conn = ConnectionHelper.GetConnection();
          SqlCommand cmd = new SqlCommand();
-         string select = string.Format("Select FullName, UserName,Pasword,UserGroupId from TblUserApproval where UserID={0}", Convert.ToInt32(userid));
+         string select = string.Format("Select FullName,EmailAddress, UserName,Pasword,UserGroupId from TblUserApproval where UserID={0}", Convert.ToInt32(userid));
          cmd.CommandText = select;
          cmd.Connection = conn;
          cmd.CommandType = CommandType.Text;
@@ -317,7 +317,7 @@ public class BLLUser
     {
         SqlConnection conn = ConnectionHelper.GetConnection();
         SqlCommand cmd = new SqlCommand();
-        string select = string.Format("Select FullName,UserGroupId from TblUserApproval where UserName='{0}'",username);
+        string select = string.Format("Select UserId, FullName,UserGroupId,EmailAddress from TblUserApproval where UserName='{0}'",username);
         cmd.CommandText = select;
         cmd.Connection = conn;
         cmd.CommandType = CommandType.Text;
@@ -340,6 +340,28 @@ public class BLLUser
             conn.Open();
         }
         cmd1.ExecuteNonQuery();
+        conn.Close();
+    }
+
+
+   public static void SaveMemberToDatabase(MemberInfo m)
+    {
+        SqlConnection conn = ConnectionHelper.GetConnection();
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "Usp_Member_Create";
+        cmd.Parameters.AddWithValue("@UserId", m.MemberId);
+        cmd.Parameters.AddWithValue("@fullname", m.FullName);
+        cmd.Parameters.AddWithValue("@bloodgroupid", m.BloodGroupId);
+        cmd.Parameters.AddWithValue("@Gender", m.Gender);
+        cmd.Parameters.AddWithValue("@besttime", m.BestTime);
+        cmd.Parameters.AddWithValue("@mobilenumber", m.MobileNo);
+        cmd.Parameters.AddWithValue("@email", m.Email);
+        cmd.Parameters.AddWithValue("@currentaddress", m.CurrentAddress);
+        cmd.Parameters.AddWithValue("@currentdistrict", m.District);
+        cmd.Parameters.AddWithValue("@profilepicture", m.ProfilePicture);
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Connection = conn;
+        cmd.ExecuteNonQuery();
         conn.Close();
     }
 
