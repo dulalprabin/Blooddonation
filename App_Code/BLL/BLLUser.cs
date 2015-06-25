@@ -248,17 +248,17 @@ public class BLLUser
     }
 
 
-     public static bool LoginUser(string username,
+     public static  DataTable LoginUser(string username,
              string password)
         {
-           
-            string query = "SELECT COUNT(UserId) FROM TblUserApproval WHERE UserName ='";
+            DataTable dt = new DataTable();
+            string query = "SELECT  UserGroupid,FullName,EmailAddress FROM TblUserApproval WHERE UserName ='";
             query += username + "' AND PASWORD='" + password + "'";
 
 
             SqlConnection con =ConnectionHelper.GetConnection();
             SqlCommand command = new SqlCommand(query, con);
-            int a = -1;
+            
             try
             {
 
@@ -267,21 +267,21 @@ public class BLLUser
                     con.Open();
                 }
 
-                a = Convert.ToInt32(command.ExecuteScalar().ToString());
+                //a = Convert.ToInt32(command.ExecuteScalar().ToString());
+                SqlDataAdapter adp = new SqlDataAdapter(command);
+                adp.Fill(dt);
+                return dt;
+              
             }
             catch (Exception e)
             {
-
+                return null;
             }
             finally
             {
                 con.Close();
             }
-            if (a > 0)
-            {
-                return true;
-            }
-            return false;
+            
         }
      public static bool CheckIsApproved(string username)
      {
@@ -299,6 +299,49 @@ public class BLLUser
          else { return false; }
 
      }
+    public static DataTable SelectFields(string userid)
+     {
+         SqlConnection conn = ConnectionHelper.GetConnection();
+         SqlCommand cmd = new SqlCommand();
+         string select = string.Format("Select FullName, UserName,Pasword,UserGroupId from TblUserApproval where UserID={0}", Convert.ToInt32(userid));
+         cmd.CommandText = select;
+         cmd.Connection = conn;
+         cmd.CommandType = CommandType.Text;
+         DataTable dt = new DataTable();
+
+         SqlDataAdapter adp = new SqlDataAdapter(cmd);
+         adp.Fill(dt);
+         return dt;
+     }
+    public static DataTable SelectField(string username)
+    {
+        SqlConnection conn = ConnectionHelper.GetConnection();
+        SqlCommand cmd = new SqlCommand();
+        string select = string.Format("Select FullName,UserGroupId from TblUserApproval where UserName='{0}'",username);
+        cmd.CommandText = select;
+        cmd.Connection = conn;
+        cmd.CommandType = CommandType.Text;
+        DataTable dt = new DataTable();
+
+        SqlDataAdapter adp = new SqlDataAdapter(cmd);
+        adp.Fill(dt);
+        return dt;
+    }
+    public static void UpdateUserStatus(string userid)
+    {
+        SqlConnection conn = ConnectionHelper.GetConnection();
+        string update = string.Format("Update TblUserApproval set IsApproved='True' where UserId={0}", Convert.ToInt32(userid));
+        SqlCommand cmd1 = new SqlCommand();
+        cmd1.CommandText = update;
+        cmd1.Connection = conn;
+        cmd1.CommandType = CommandType.Text;
+        if (conn.State == ConnectionState.Closed)
+        {
+            conn.Open();
+        }
+        cmd1.ExecuteNonQuery();
+        conn.Close();
+    }
 
     }
 

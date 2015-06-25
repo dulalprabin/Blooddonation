@@ -16,8 +16,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-   
-    <div class="container">
+ 
+  <div class="container">
 
     <!-- Start Header --> 
     
@@ -25,11 +25,16 @@
      <div class="row">
   <div class="col-md-3">
   <!-- Main Logo 225px x 224px -->
-      <asp:Image ID="Image1" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></div>
+      <asp:Image ID="Image2" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></div>
       <!-- header banner width 700 x 200 -->
-  <div class="col-md-9">  <asp:Image ID="Image4" height="200" Width="850" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-responsive" />
+  <div class="col-md-9">  <asp:Image ID="Image3" height="200" Width="850" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-responsive" />
+      
+  <div style="position:absolute; padding-right:10px;"> <asp:Label ID="LblUser" runat="server" Text=" "></asp:Label>
+  <asp:LinkButton ID="lnbLogout" runat="server" onclick="lnbLogout_Click">Logout</asp:LinkButton>
+  </div>
   
   </div>
+
 </div>
 
 <!-- End Header -->   
@@ -37,7 +42,7 @@
 
  <!-- Start Navigation -->
  <br />
-   <%--<div class = "navbar navbar-default navbar-static-top">
+   <div class = "navbar navbar-default navbar-static-top">
     <div class="container">
   
     
@@ -48,38 +53,73 @@
     </button>
     <div class="collapse navbar-collapse navHeaderCollapse">
     <ul class="nav navbar-nav navbar-left">
-    //<li><a href="">Home</a></li>
-    <li><a href="">Blood Center</a></li>
-    <li><a href="">Request Blood </a></li>
-    <li><a href="">Contact Us</a></li>
-    <li><a href="">Why To Donate</a></li>
-
+    <li><a href="../Home.aspx">Home</a></li>
+    <li><a href="BloodCenterDetails.aspx">Blood Center</a></li>
+    <%--<li><a href="#">Request Blood </a></li>--%>
+    <li><a href="../User/PostEventForm.aspx">Post Events</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="UserManagement.aspx">User Management </a></li>
+    <li><a href="EventVerify.aspx">Event Verify</a></li>
+    <li><a href="VerifyAdvanceBloodRequest.aspx">Blood requests</a></li>
+    <li><a href="WebSettings.aspx">Settings</a></li>
     </ul>
     </div>
+       
     </div>
-    </div>--%>
+    </div>
 
  <!-- End Navigation -->
 
- <div class="row">
-  <div class="col-md-3">
- <ul class="list-group">
-  <li class="list-group-item"><a href="UserManagement.aspx">User Management </a></li>
-  <li class="list-group-item"><a href="EventVerify.aspx">Event Verify</a></li>
-  <li class="list-group-item"><a href="VerifyAdvanceBloodRequest.aspx">Blood requests</a></li>
-  <li class="list-group-item"><a href="WebSettings.aspx">Settings</a></li>
-</ul>
-  
-  </div>
- 
 
-  <div class="col-md-9">
 
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+  <!-- Start Search -->
+
+
+<div class="row">
+  <div class="col-md-12">
+      <asp:DropDownList ID="ddlBloodGroup" runat="server" CssClass="btn btn-default">
+          <asp:ListItem>Blood Group</asp:ListItem>
+          <asp:ListItem>A</asp:ListItem>
+          <asp:ListItem>B</asp:ListItem>
+      </asp:DropDownList>
+      <asp:DropDownList ID="ddlLocation" runat="server" CssClass="btn btn-default">
+          <asp:ListItem>Choose Location</asp:ListItem>
+          <asp:ListItem>Baneswor</asp:ListItem>
+          <asp:ListItem>Basantapur</asp:ListItem>
+          <asp:ListItem>Koteswor</asp:ListItem>
+      </asp:DropDownList>
+      <button type="button" class="btn btn-info">Search</button>
+      <br />
+       <%--<div style="align-self:center" class="col-md-6 col-xs-12">
+
+  <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
+        
+       </div>--%>
   </div>
-  </div>
+  
+</div>
+<br />
+      <br />
+       <div> 
+
+  <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+        
+       </div>
+ <!-- End  Search -->
+
+  <!-- Start Main Container  Home Page -->
+
+
+
+
+
+ <!-- End Main Container  Home Page -->
+
+
  <!-- Start Footer -->
 
 
@@ -91,6 +131,7 @@
  <!-- End Footer -->
 
 </div>
+        
     </form>
    
      <script src="~/Assets/Js/bootstrap.min.js" type="text/javascript"></script>

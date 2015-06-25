@@ -50,33 +50,13 @@ public partial class DonarDetails : System.Web.UI.Page
     private void ValidateUser()
     {
 
-        SqlConnection conn = ConnectionHelper.GetConnection();
-        SqlCommand cmd = new SqlCommand();
-        string select = string.Format("Select FullName, UserName,Pasword,UserGroupId from TblUserApproval where UserID={0}", Convert.ToInt32(userid));
-        cmd.CommandText = select;
-        cmd.Connection = conn;
-        cmd.CommandType = CommandType.Text;
-        DataTable dt = new DataTable();
-
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);
-        adp.Fill(dt);
-
-        string password = dt.Rows[0]["Pasword"].ToString();
+      DataTable dt = BLLUser.SelectFields(userid);
+      string password = dt.Rows[0]["Pasword"].ToString();
         string name = dt.Rows[0]["UserName"].ToString();
         string fname = dt.Rows[0]["FullName"].ToString();
         int usergroupid = Convert.ToInt32(dt.Rows[0]["UserGroupId"].ToString());
-        string update = string.Format("Update TblUserApproval set IsApproved='True' where UserId={0}", Convert.ToInt32(userid));
-        SqlCommand cmd1 = new SqlCommand();
-        cmd1.CommandText = update;
-        cmd1.Connection = conn;
-        cmd1.CommandType = CommandType.Text;
-        if (conn.State == ConnectionState.Closed)
-        {
-            conn.Open();
-        }
-        cmd1.ExecuteNonQuery();
-        conn.Close();
-        if (BLLUser.LoginUser(emailaddress, password))
+        BLLUser.UpdateUserStatus(userid);
+        if (BLLUser.LoginUser(name, password).Rows.Count>0)
         {
             Session["UserName"] = name;
             if (usergroupid == 1 || usergroupid == 2)
@@ -102,30 +82,7 @@ public partial class DonarDetails : System.Web.UI.Page
 
 
     }
-    public bool CheckUserValidation(int id)
-    {
-        SqlConnection conn = ConnectionHelper.GetConnection();
-        SqlCommand cmd = new SqlCommand();
-        string select = string.Format("Select IsApproved  from TblUserApproval where UserID={0}", id);
-        cmd.CommandText = select;
-        cmd.Connection = conn;
-        cmd.CommandType = CommandType.Text;
-        DataTable dt = new DataTable();
-
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);
-        adp.Fill(dt);
-
-        string status = dt.Rows[0]["IsApproved"].ToString();
-        if (status == "true")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }
+   
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
 

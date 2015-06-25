@@ -40,11 +40,21 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void btn_Login_Click(object sender, EventArgs e)
     {
-        if (BLLUser.LoginUser(txtUsername.Text.Trim(), txtPassword1.Text.Trim()))
+        DataTable dt1 = BLLUser.LoginUser(txtUsername.Text.Trim(), txtPassword1.Text.Trim());
+        if (dt1.Rows.Count>0)
         {
+            int usergroupid =Convert .ToInt32( dt1.Rows[0]["UserGroupId"].ToString());
           //  FormsAuthentication.RedirectFromLoginPage(txtUsername.Text, false);
             Session["UserName"] = txtUsername.Text;
-            Response.Redirect("/User/DonarDetails.aspx");
+            if (usergroupid == 3)
+            {
+                Response.Redirect("/User/DonarDetails.aspx");
+            }
+            else if(usergroupid==2)
+            {
+                Response.Redirect("/Admin/UserManagement.aspx");
+            }
+
         }
     }
     BLLEvent ble = new BLLEvent();
@@ -89,7 +99,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         try
         {
             InsertUser(TxtFirstName.Text.Trim() + " " + TxtLastName.Text.Trim(),txtuser.Text.Trim(), TxtEmail.Text.Trim(), TxtPassword.Text.Trim(), Txtmobile.Text.Trim());
-         if(   BLLUser.LoginUser(txtuser.Text.Trim(), TxtPassword.Text.Trim()))
+         if(   BLLUser.LoginUser(txtuser.Text.Trim(), TxtPassword.Text.Trim()).Rows.Count>0)
          {
              Session["UserName"] = txtuser.Text.Trim();
              Session["EmailId"] = TxtEmail.Text.Trim();

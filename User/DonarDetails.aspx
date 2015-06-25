@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/User/User.master" AutoEventWireup="true" CodeFile="DonarDetails.aspx.cs" Inherits="DonarDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-   <link href="~/Assets/Styles/Css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/Styles/Css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/Styles/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Assets/Styles/Css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="Assets/Js/bootstrap.min.js"></script>
@@ -129,7 +129,7 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
                 </td>
             </tr>
             <tr>
-                <td >Address</td>
+                <td >CurrentAddress</td>
                 <td class="auto-style2" >
                     <asp:TextBox ID="txtAddress" CssClass="form-control" runat="server"></asp:TextBox>
                 </td>
@@ -168,17 +168,22 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
                 </td>
             </tr>
             <tr>
-                <td>Gender</td>
+                <td>Best Time To Contact</td>
                 <td class="auto-style2">
-                    <asp:RadioButton ID="RadioButton1" GroupName="a" runat="server" Text="Male" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:RadioButton ID="RadioButton2" GroupName="a" runat="server" Text="Female" />
+                    <asp:CheckBoxList ID="chkContactTime" runat="server">
+                        <asp:ListItem>Anytime</asp:ListItem>
+                        <asp:ListItem>Morning</asp:ListItem>
+                        <asp:ListItem>Afternoon</asp:ListItem>
+                        <asp:ListItem>Evening</asp:ListItem>
+                    </asp:CheckBoxList>
                 </td>
             </tr>
             <tr>
-                <td>Message To Convey</td>
+                <td>Gender</td>
                 <td class="auto-style2">
-                    <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" Height="41px"  TextMode="MultiLine" Width="233px" BorderColor="#575757" BorderStyle="Solid" BorderWidth="2px"></asp:TextBox>
+                    <asp:RadioButton ID="RadioButton1" runat="server" GroupName="a" Text="Male" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:RadioButton ID="RadioButton2" runat="server" GroupName="a" Text="Female" />
                 </td>
             </tr>
             <tr>
