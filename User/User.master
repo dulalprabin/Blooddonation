@@ -27,17 +27,39 @@
     <!-- Start Header --> 
     
       
-     <div class="row">
-  <div class="col-md-3">
+     <div class="col-md-3 col-sm-12 col-xs-12">
   <!-- Main Logo 225px x 224px -->
-      <asp:Image ID="Image1" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></div>
+      <a href="Home.aspx"><asp:Image ID="Image1" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></a></div>
+
       <!-- header banner width 700 x 200 -->
-  <div class="col-md-9">  <asp:Image ID="Image4" height="200" Width="850" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-responsive" />
-      
-  <div style="position:absolute; padding-right:10px;"> <asp:Label ID="LblUser" runat="server" Text=" "></asp:Label>
-  <asp:LinkButton ID="lnbLogout" runat="server" onclick="lnbLogout_Click">Logout</asp:LinkButton>
-  </div>
-  
+  <div class="col-md-9 col-sm-12 col-xs-12">
+      <div class="form-group" style="position:absolute; right:20px;">
+          <ul class="nav pull-right"> 
+
+          <li class="pull-left"><asp:Label ID="LblUser" runat="server" Font-Bold="true" ForeColor="GrayText"/></li>
+          <li class="dropdown pull-right">
+            <img src="../Assets/Images/user.gif" height="40px" width="40px" class="dropdown-toggle" data-toggle="dropdown" alt=""/>
+            <div class="dropdown-menu" style="padding: 15px;width:250px">
+                          <!-- Login form here -->
+                <asp:Panel ID="pnlUserPhoto" runat="server" style="float:left;height:90px;width:90px">
+                    <asp:Image ID="Image2" ImageUrl="~/Assets/Images/web-user.gif" Height="100%" Width="100%" runat="server" />
+                </asp:Panel>
+                 <%--<asp:TextBox ID="txtUsername"  CssClass="form-control" runat="server" placeholder="UserName" ></asp:TextBox>--%>
+                 <asp:Panel ID="Panel1" runat="server"  style="float:right">
+                 <asp:LinkButton ID="lnkChangePass" runat="server" Text="Change Password" Onclick="lnkChangePass_Click"/><br />
+                  <asp:LinkButton ID="lnkSignOut" runat="server" Text="Log Out" Onclick="lnkSignOut_Click"/>      
+                </asp:Panel>
+         
+            </div>
+
+          </li>
+        </ul>
+       
+
+ </div>
+         <!--End Login/Register-->
+
+        <a href="Home.aspx"><asp:Image ID="Image4" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-rounded img-responsive" /></a>
   </div>
 </div>
 
@@ -57,13 +79,15 @@
     </button>
     <div class="collapse navbar-collapse navHeaderCollapse">
     <ul class="nav navbar-nav navbar-left">
-    <li><a href="../Home.aspx">Home</a></li>
-    <li><a href="BloodCenterDetails.aspx">Blood Center</a></li>
-    <li><a href="#">Request Blood </a></li>
-    <li><a href="#">Contact Us</a></li>
-    <li><a href="../WhyToDonate.aspx">Why To Donate</a></li>
-    <li><a href="../User/PostEventForm.aspx">Post Events</a></li>
-    <li><a href="#">Profile</a></li>
+        <li><a href="../Home.aspx">Home</a></li>
+        <li><a href="../BloodCenterDetails.aspx">Blood Center</a></li>
+        <li id="menuAdvBldReq" runat="server"><a href="../AdvanceAndEmergencyBloodRequest.aspx">Request Blood </a></li>
+        <li id="menuPostEvent" runat="server"><a href="../User/PostEventForm.aspx">Post Events</a></li>
+        <li id="menuProfile" runat="server"><a href="../User/UserProfile.aspx">Profile</a></li>
+        <li id="menuAdminUserManagement" runat="server"><a href="../Admin/UserManagement.aspx">User Management </a></li>
+        <li id="menuAdminEventVerify" runat="server"><a href="../Admin/EventVerify.aspx">Event Verify</a></li>
+        <li id="menuAdminVerifyAdvBldReq" runat="server"><a href="../Admin/VerifyAdvanceBloodRequest.aspx">Blood requests</a></li>
+        <li id="menuAdminSetting" runat="server"><a href="../Admin/WebSettings.aspx">Settings</a></li>
     </ul>
     </div>
     </div>
@@ -211,7 +235,7 @@ Blood donation campain in Koteswor<br /><br />
 
  <!-- End Footer -->
 
-</div>
+
     </form>
    
      <script src="~/Assets/Js/bootstrap.min.js" type="text/javascript"></script>

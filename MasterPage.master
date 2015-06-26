@@ -12,12 +12,11 @@
     <script src="Assets/Js/bootstrap.min.js"></script>
 
 
-   
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 
-
 </head>
+
 <body>
     <form id="form1" runat="server">
     <div class="container">
@@ -26,95 +25,116 @@
     
       
      <div class="row">
-  <div class="col-md-3 col-sm-12 col-xs-12">
-  <!-- Main Logo 225px x 224px -->
-      <a href="Home.aspx"><asp:Image ID="Image1" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></a></div>
-       
+        <div class="col-md-3 col-sm-12 col-xs-12">
+             <!-- Main Logo 225px x 224px -->
+             <a href="Home.aspx"><asp:Image ID="Image1" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></a>
+        </div>
          
-      <!-- header banner width 700 x 200 -->
-  <div class="col-md-9 col-sm-12 col-xs-12">
-    <!--Login/Register-->
-      <div class="form-group" style="position:absolute; right:20px;">
-         <ul class="nav pull-right"> 
-
-          <li class="pull-right"><a href="#" data-toggle="modal" data-target="#SignUpmodel">SignUp</a></li>
-          <li class="dropdown pull-left">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">SignIn <strong class="caret"></strong></a>
-            <div class="dropdown-menu" style="padding: 15px;">
+            <!-- header banner width 700 x 200 -->
+        <div class="col-md-9 col-sm-12 col-xs-12">
+             <!--Login/Register-->
+         <div class="form-group" style="position:absolute; right:20px;">
+             <ul class="nav pull-right" id="ulSignInOut" runat="server"> 
+                <li class="pull-right"><a href="#" data-toggle="modal" data-target="#SignUpmodel">SignUp</a></li>
+                <li class="dropdown pull-left">
+                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">SignIn <strong class="caret"></strong></a>
+                 <div class="dropdown-menu" style="padding: 15px;">
                           <!-- Login form here -->
              
                     <asp:TextBox ID="txtUsername"  CssClass="form-control" runat="server" placeholder="UserName" ></asp:TextBox>
                     <asp:TextBox ID="txtPassword1" CssClass="form-control" runat="server" type="password" placeholder="Password" ></asp:TextBox>
-                   <h6><a href="#">Forget your password?</a></h6> 
+                    <asp:LinkButton ID="lnkForgotPassword" runat="server" Font-Size="Smaller" ForeColor="Blue" Text="Forgot your password?" onClick="lnkForgotPassword_Click"/>
                     <asp:Button ID="btnLogin" CssClass="btn btn-default pull-right" runat="server" Text="LogIn" onclick="btn_Login_Click"/>      
             
-            </div>
+                </div>
 
-          </li>
-        </ul>
-       
+                 </li>
+            </ul>
 
- </div>
+            <ul class="nav pull-right" id="ulLogout" runat="server"> 
+                 <li class="pull-left"><asp:Label ID="LblUser" runat="server" Font-Bold="true" ForeColor="GrayText" /></li>
+                 <li class="dropdown pull-right">
+                 <img src="../Assets/Images/user.gif" height="40px" width="40px" class="dropdown-toggle" data-toggle="dropdown" alt=""/>
+                 <div class="dropdown-menu" style="padding: 15px;width:250px">
+                          <!-- Login form here -->
+                     <asp:Panel ID="pnlUserPhoto" runat="server" style="float:left;height:90px;width:90px">
+                     <asp:Image ID="Image2" ImageUrl="~/Assets/Images/web-user.jpg" Height="100%" Width="100%" runat="server" />
+                     </asp:Panel>
+
+                     <asp:Panel ID="Panel1" runat="server"  style="float:right">
+                     <asp:LinkButton ID="lnkChangePass" runat="server" Text="Change Password" Onclick="lnkChangePass_Click"/><br />
+                     <asp:LinkButton ID="lnkSignOut" runat="server" Text="Log Out" Onclick="lnkSignOut_Click"/>      
+                     </asp:Panel>
+         
+                 </div>
+
+                 </li>
+             </ul>
+
+        </div>
          <!--End Login/Register-->
 
         <a href="Home.aspx"><asp:Image ID="Image4" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-rounded img-responsive" /></a>
       
-  </div>
-          <div class="modal fade" id="SignUpmodel" style="align-self:center" tabindex="-1" 
-role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="width:300px;height:900px">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;
-                            </span><span class="sr-only">
-                                     Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">
-                            Registration Form</h4>
+     </div>
+
+          <div class="modal fade" id="SignUpmodel" style="text-align:center" tabindex="-1" 
+            role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+
+                <div class="modal-dialog" style="width:300px;height:900px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                            
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only"> Close</span>
+                             </button>
+
+                         <h4 class="modal-title" id="myModalLabel">Registration Form</h4>
+                            
                     </div>
                     <div class="modal-body">
                        <div class="input-group">
-        <asp:TextBox ID="TxtFirstName" class="form-control" placeholder="First Name" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtFirstName" class="form-control" placeholder="First Name" runat="server"></asp:TextBox>
            
-        </div>
-        <p>
-        </p>
-                              <div class="input-group">
-           <asp:TextBox ID="TxtLastName" class="form-control" placeholder="Last Name" runat="server"></asp:TextBox>
-            
-        </div>
-        <p>
-        </p>
+                        </div>
+                             <p>
+                             </p>
                         <div class="input-group">
-           <asp:TextBox ID="txtuser"  class="form-control"  placeholder="UserName" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtLastName" class="form-control" placeholder="Last Name" runat="server"></asp:TextBox>
             
-        </div>
-        <p>
-        </p>
-                              <div class="input-group">
-            <asp:TextBox ID="TxtEmail" class="form-control" placeholder="Email Id" runat="server"></asp:TextBox>
+                        </div>
+                        <p>
+                        </p>
+                        <div class="input-group">
+                            <asp:TextBox ID="txtuser"  class="form-control"  placeholder="UserName" runat="server"></asp:TextBox>
             
-        </div>
-        <p>
-        </p>
-                              <div class="input-group">
-       <asp:TextBox ID="Txtmobile" class="form-control" placeholder="MobileNo" runat="server"></asp:TextBox>
+                         </div>
+                <p>
+                </p>
+                         <div class="input-group">
+                            <asp:TextBox ID="TxtEmail" class="form-control" placeholder="Email Id" runat="server"></asp:TextBox>
             
-        </div>
-        <p>
-        </p>
-                              <div class="input-group">
-            <asp:TextBox ID="TxtPassword" Type="Password" class="form-control" placeholder="Password" runat="server"></asp:TextBox>
+                         </div>
+                <p>
+                </p>
+                         <div class="input-group">
+                            <asp:TextBox ID="Txtmobile" class="form-control" placeholder="MobileNo" runat="server"></asp:TextBox>
             
-        </div>
-        <p>
-        </p>
-        <div class="input-group">
-            <asp:TextBox ID="txtConfirmPassword" class="form-control" placeholder="Reenter Password" Type="Password" runat="server"></asp:TextBox>
+                        </div>
+                <p>
+                </p>
+                         <div class="input-group">
+                            <asp:TextBox ID="TxtPassword" Type="Password" class="form-control" placeholder="Password" runat="server"></asp:TextBox>
+                        </div>
+                 <p>
+                </p>
+                         <div class="input-group">
+                              <asp:TextBox ID="txtConfirmPassword" class="form-control" placeholder="Reenter Password" Type="Password" runat="server"></asp:TextBox>
             
-        </div>
-        <p>
-        </p>  
+                         </div>
+              <p>
+              </p>  
                         <asp:Button id="btnsubmit" OnClick="btnsubmit_Click" runat="server" Text="Submit" CssClass="btn btn-default"/>
                         <button type="button" 
                         class="btn btn-default" data-dismiss="modal">
@@ -134,38 +154,41 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
 
   
     <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+         <div class="container-fluid">
+             <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                     <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
     
-    </div>
+             </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="Home.aspx">Home</a></li>
-    <li><a href="BloodCenterDetails.aspx">Blood Center</a></li>
-    <li><a href="AdvanceAndEmergencyBloodRequest.aspx">Request Blood </a></li>
-    <li><a href="ContactUs.aspx">Contact Us</a></li>
-    <li><a href="WhyToDonate.aspx">Why To Donate</a></li>
- 
-          </ul>
-        
-      
-    
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
- <!-- End Navigation -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+                 <li><a href="Home.aspx">Home</a></li>
+                 <li><a href="BloodCenterDetails.aspx">Blood Center</a></li>
+                 <li><a href="AdvanceAndEmergencyBloodRequest.aspx">Request Blood </a></li>
+                 <li id="menuPostEvent" runat="server"><a href="../User/PostEventForm.aspx">Post Events</a></li>
+                 <li id="menuProfile" runat="server"><a href="../User/UserProfile.aspx">Profile</a></li>
+                 <li id="menuAdminUserManagement" runat="server"><a href="../Admin/UserManagement.aspx">User Management </a></li>
+                 <li id="menuAdminEventVerify" runat="server"><a href="../Admin/EventVerify.aspx">Event Verify</a></li>
+                 <li id="menuAdminVerifyAdvBldReq" runat="server"><a href="../Admin/VerifyAdvanceBloodRequest.aspx">Blood requests</a></li>
+                 <li id="menuAdminSetting" runat="server"><a href="../Admin/WebSettings.aspx">Settings</a></li>
+                 <li id="menuContactUs" runat="server"><a href="ContactUs.aspx">Contact Us</a></li>
+                 <li id="menuWhyDonate" runat="server"><a href="WhyToDonate.aspx">Why To Donate</a></li>
+             </ul>
+           
+         </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <!-- End Navigation -->
 
 
-  <!-- Start Search -->
+     <!-- Start Search -->
 
 
 <div class="row">
@@ -270,7 +293,6 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
     <li class="list-group-item">Porta ac consectetur ac</li>
     <li class="list-group-item">Vestibulum at eros</li>
   </ul>
-
 
       </div>
     </div>

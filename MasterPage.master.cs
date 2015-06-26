@@ -19,17 +19,55 @@ using System.Text;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
-        
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        //For Maintaining Master Pages Menus
+        if (Session["UserName"] != null)
+        {
+            ulSignInOut.Visible = false;
+            ulLogout.Visible = true;
+            menuContactUs.Visible = false;
+            menuWhyDonate.Visible = false;
+            LblUser.Text = "Welcome  " + Session["UserName"].ToString();
+            if (Convert.ToInt32(Session["UserGroupID"].ToString()) == 2)
+            {
+                menuPostEvent.Visible = true;
+                menuProfile.Visible = true;
+                menuAdminUserManagement.Visible = true;
+                menuAdminEventVerify.Visible = true;
+                menuAdminVerifyAdvBldReq.Visible = true;
+                menuAdminSetting.Visible = true;
+
+            }
+            else if (Convert.ToInt32(Session["UserGroupID"].ToString()) == 3)
+            {
+                menuPostEvent.Visible = true;
+                menuProfile.Visible = true;
+                menuAdminUserManagement.Visible = false;
+                menuAdminEventVerify.Visible = false;
+                menuAdminVerifyAdvBldReq.Visible = false;
+                menuAdminSetting.Visible = false;
+            }
+        }
+        else
+        {
+            ulSignInOut.Visible = true;
+            ulLogout.Visible = false;
+            menuPostEvent.Visible = false;
+            menuProfile.Visible = false;
+            menuAdminUserManagement.Visible = false;
+            menuAdminEventVerify.Visible = false;
+            menuAdminVerifyAdvBldReq.Visible = false;
+            menuAdminSetting.Visible = false;
+        }
         if (!IsPostBack)
         {
             BloodGroupAndLocation.dataload(ddl_bloodgroup, ddl_location);
             EventLoad();
         }
 
-    }
-
+        }
     
     protected void btn_search_Click(object sender, EventArgs e)
     {
@@ -38,37 +76,38 @@ public partial class MasterPage : System.Web.UI.MasterPage
         Response.Redirect("DonarList.aspx?Location=" + LocationID+"&BloodGroup=" + BloodId);
     }
 
+
     protected void btn_Login_Click(object sender, EventArgs e)
     {
         DataTable dt1 = BLLUser.LoginUser(txtUsername.Text.Trim(), txtPassword1.Text.Trim());
         if (dt1.Rows.Count>0)
-        {
-            int usergroupid =Convert .ToInt32( dt1.Rows[0]["UserGroupId"].ToString());
-          //  FormsAuthentication.RedirectFromLoginPage(txtUsername.Text, false);
-            Session["UserName"] = txtUsername.Text;
-            if (usergroupid == 3)
-            {
-                Response.Redirect("/User/DonarDetails.aspx");
-            }
-            else if(usergroupid==2)
-            {
-                Response.Redirect("/Admin/UserManagement.aspx");
-            }
+             {
+                 int usergroupid =Convert .ToInt32( dt1.Rows[0]["UserGroupId"].ToString());
+                //  FormsAuthentication.RedirectFromLoginPage(txtUsername.Text, false);
+                 Session["UserName"] = txtUsername.Text;
+                 Session["UserGroupID"] = usergroupid;
+                 if (usergroupid == 3)
+                 {
+                     Response.Redirect("/User/DonarDetails.aspx");
+                 }
+                else if(usergroupid==2)
+                {
+                     Response.Redirect("/Admin/UserManagement.aspx");
+                }
 
+             } 
         }
-    }
-    BLLEvent ble = new BLLEvent();
-    protected void EventLoad()
-    {
-        {
-            DataTable dt = ble.GetEvent_Today();
-            if (dt.Rows.Count > 0)
-            {
-                rptEvent.DataSource = dt;
-                rptEvent.DataBind();
+     
+        BLLEvent ble = new BLLEvent();
+        protected void EventLoad()
+            {            
+                DataTable dt = ble.GetEvent_Today();
+                if (dt.Rows.Count > 0)
+                {
+                    rptEvent.DataSource = dt;
+                    rptEvent.DataBind();
+                }
             }
-        }
-    }
 
 
     protected void btnPostEvent_Click(object sender, EventArgs e)
@@ -99,16 +138,14 @@ public partial class MasterPage : System.Web.UI.MasterPage
         try
         {
             InsertUser(TxtFirstName.Text.Trim() + " " + TxtLastName.Text.Trim(),txtuser.Text.Trim(), TxtEmail.Text.Trim(), TxtPassword.Text.Trim(), Txtmobile.Text.Trim());
-         if(   BLLUser.LoginUser(txtuser.Text.Trim(), TxtPassword.Text.Trim()).Rows.Count>0)
-         {
-             Session["UserName"] = txtuser.Text.Trim();
-             Session["EmailId"] = TxtEmail.Text.Trim();
+             if(BLLUser.LoginUser(txtuser.Text.Trim(), TxtPassword.Text.Trim()).Rows.Count>0)
+                {
+                    Session["UserName"] = txtuser.Text.Trim();
+                    Session["EmailId"] = TxtEmail.Text.Trim();
             
-             Response.Redirect("User/DonarDetails.aspx",false);
+                    Response.Redirect("User/DonarDetails.aspx",false);
              
-         }
-          
-           
+                }           
         }
 
         catch(Exception ex)
@@ -167,6 +204,24 @@ public partial class MasterPage : System.Web.UI.MasterPage
             var responseString = Encoding.Default.GetString(response);
             return responseString;
         }
+    }
+    protected void lnkForgotPassword_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void lnkChangePass_Click(object sender, EventArgs e)
+    {
+        if(Convert.ToInt32(Session["UserGroupID"].ToString())==3)
+            Response.Redirect("~/User/PaswordChange.aspx");
+       
+        else if (Convert.ToInt32(Session["UserGroupID"].ToString()) == 2)
+            Response.Redirect("~/Admin/PaswordChange.aspx");
+    }
+    protected void lnkSignOut_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("~/Home.aspx");
     }
 }
 

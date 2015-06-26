@@ -17,26 +17,46 @@
 <body>
     <form id="form1" runat="server">
  
-  <div class="container">
+   <div class="container">
 
     <!-- Start Header --> 
     
       
-     <div class="row">
-  <div class="col-md-3">
+     <div class="col-md-3 col-sm-12 col-xs-12">
   <!-- Main Logo 225px x 224px -->
-      <asp:Image ID="Image2" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></div>
+      <a href="Home.aspx"><asp:Image ID="Image1" ImageUrl="~/Assets/Images/logo.png" runat="server" CssClass="img-responsive" /></a></div>
+
       <!-- header banner width 700 x 200 -->
-  <div class="col-md-9">  <asp:Image ID="Image3" height="200" Width="850" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-responsive" />
-      
-  <div style="position:absolute; padding-right:10px;"> <asp:Label ID="LblUser" runat="server" Text=" "></asp:Label>
-  <asp:LinkButton ID="lnbLogout" runat="server" onclick="lnbLogout_Click">Logout</asp:LinkButton>
-  </div>
-  
-  </div>
+  <div class="col-md-9 col-sm-12 col-xs-12">
+      <div class="form-group" style="position:absolute; right:20px;">
+          <ul class="nav pull-right"> 
 
-</div>
+          <li class="pull-left"><asp:Label ID="LblUser" runat="server" Font-Bold="true" ForeColor="GrayText"/></li>
+          <li class="dropdown pull-right">
+            <img src="../Assets/Images/user.gif" height="40px" width="40px" class="dropdown-toggle" data-toggle="dropdown" alt=""/>
+            <div class="dropdown-menu" style="padding: 15px;width:250px">
+                          <!-- Login form here -->
+                <asp:Panel ID="pnlUserPhoto" runat="server" style="float:left;height:90px;width:90px">
+                    <asp:Image ID="Image2" ImageUrl="~/Assets/Images/web-user.gif" Height="100%" Width="100%" runat="server" />
+                </asp:Panel>
+                 <%--<asp:TextBox ID="txtUsername"  CssClass="form-control" runat="server" placeholder="UserName" ></asp:TextBox>--%>
+                 <asp:Panel ID="Panel1" runat="server"  style="float:right">
+                 <asp:LinkButton ID="lnkChangePass" runat="server" Text="Change Password" Onclick="lnkChangePass_Click"/><br />
+                  <asp:LinkButton ID="lnkSignOut" runat="server" Text="Log Out" Onclick="lnkSignOut_Click"/>      
+                </asp:Panel>
+         
+            </div>
 
+          </li>
+        </ul>
+       
+
+        </div>
+         <!--End Signout-->
+
+        <a href="Home.aspx"><asp:Image ID="Image4" ImageUrl="~/Assets/Images/header.jpg" runat="server" CssClass="img-rounded img-responsive" /></a>
+    </div>
+  </div>
 <!-- End Header -->   
 
 
@@ -54,7 +74,7 @@
     <div class="collapse navbar-collapse navHeaderCollapse">
     <ul class="nav navbar-nav navbar-left">
     <li><a href="../Home.aspx">Home</a></li>
-    <li><a href="BloodCenterDetails.aspx">Blood Center</a></li>
+    <li><a href="../BloodCenterDetails.aspx">Blood Center</a></li>
     <%--<li><a href="#">Request Blood </a></li>--%>
     <li><a href="../User/PostEventForm.aspx">Post Events</a></li>
     <li><a href="#">Profile</a></li>
